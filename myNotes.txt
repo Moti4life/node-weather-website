@@ -1,0 +1,25 @@
+// app.get('', (req, res) => {
+//     res.send('<h1> Weather </h1>')
+
+// })
+
+
+//===========
+/* app.get('/help', (req, res) => {
+    res.send([{
+        name: 'moti',
+        age: 27
+    },
+    {
+        name: 'ceasar'
+    }
+])
+
+})
+
+app.get('/about', (req, res) => {
+    res.send('<h1>about this project</h1>')
+
+}) */
+
+//=========
