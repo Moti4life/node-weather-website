@@ -27,7 +27,7 @@ const forecast = (lat, lon, callback) => {
                 description: response.body.current.weather_descriptions[0],
                 name: response.body.location.name
             } */
-            ('temperature is: '+ response.body.current.temperature + " feels like: " + response.body.current.feelslike + " weather is: "+ response.body.current.weather_descriptions[0] + ' with a '+ response.body.current.precip + ' chance of rain')
+            ('It is currently: ' + response.body.location.localtime + ' local time.' +' Temperature is: '+ response.body.current.temperature + " but feels like: " + response.body.current.feelslike + ". The weather is: "+ response.body.current.weather_descriptions[0] + ' with a '+ response.body.current.precip + ' chance of rain with a humidity of: ' + response.body.current.humidity )
             )
         }
         
