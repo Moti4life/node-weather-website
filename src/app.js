@@ -10,8 +10,11 @@ console.log(path.join(__dirname, '../public')) */
 
 
 const app = express()
-const publicDirectoryPath = path.join(__dirname, '../public')
+//port set by heroku or 3000 if not provided
+const port = process.env.PORT || 3000
 
+//define paths for express config
+const publicDirectoryPath = path.join(__dirname, '../public')
 //if you want to customize 'views' path
 const viewsPath = path.join(__dirname, '../templates/views')
 const partialsPath = path.join(__dirname, '../templates/partials')
@@ -144,8 +147,8 @@ app.get('*', (req, res) => {
     })
 })
 
-app.listen(3000, () => {
-    console.log('server started on port 3000')
+app.listen(port, () => {
+    console.log('server started on port ' + port)
 })
 
 
