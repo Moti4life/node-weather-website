@@ -49,7 +49,7 @@ app.get('', (req, res) => {
 app.get('/about', (req, res) => {
     res.render('about', {
         title: 'about page',
-        name: 'merlioown'
+        name: 'merlioown san'
     })
 
 })
