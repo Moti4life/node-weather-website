@@ -1,7 +1,7 @@
 
 let setTheme = localStorage.getItem('theme')
 
-if(!setTheme == null){
+if(setTheme == null){
     swapStyle('/css/styles.css')
 }
 else{
