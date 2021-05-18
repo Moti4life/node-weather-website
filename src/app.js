@@ -2,7 +2,7 @@ const path = require('path')
 const express = require('express')
 const hbs = require('hbs')
 
-const geoCode = require('./utils/geocode.js')
+const {geoCode , geoCodeLocation} = require('./utils/geocode.js')
 const forecast = require('./utils/forecast.js')
 
 /* console.log(__dirname)
@@ -39,7 +39,7 @@ app.use(express.static(publicDirectoryPath))
 
 app.get('', (req, res) => {
     res.render('index', {
-        title: 'weather 6000',
+        title: 'weather you are here or there',
         name: 'moti que'
     })
 
@@ -57,9 +57,9 @@ app.get('/about', (req, res) => {
 // for /help
 app.get('/help', (req, res) => {
     res.render('help', {
-        message: 'this is a help page',
+        message: 'this is a help page enter your location or try using geoLocator',
         title: 'HELP',
-        name: 'motisan'
+        name: 'moti'
     })
 
 })
@@ -76,7 +76,7 @@ app.get('/weather', (req, res) => {
     
      
     else{
-        geoCode(req.query.address, (error, {latitude, longtitude, locationName} = {} ) => {
+        geoCode(req.query.address, (error, {latitude, longitude, locationName} = {} ) => {
             console.log(locationName)
             if(error){
                 return res.send({
@@ -84,7 +84,7 @@ app.get('/weather', (req, res) => {
                 })
             }
             else{
-            forecast(latitude, longtitude, (error, forecastData) => {
+            forecast(latitude, longitude, (error, forecastData) => {
                 if(error){
                     return res.send({
                         error: error
@@ -110,7 +110,48 @@ app.get('/weather', (req, res) => {
 
 })
 
-app.get('/products', (req, res) => {
+app.get('/weatherCurrentLocation', (req, res) => {
+    //console.log('weatherCurrentLocation')
+    const latitude = req.query.latitude
+    const longitude = req.query.longitude
+
+    if(!latitude && !longitude){
+        return res.send( {
+            error: 'something went wrong, please refresh the page and try again'
+        })
+    }
+
+    // call geo with lat lon then receive (error, location object) from geoCodeLocation
+    geoCodeLocation(latitude, longitude, (error, {locationName}) => {
+        console.log(locationName)
+        if(error){
+            return res.send({
+                error: error
+            })
+        }
+        else{
+            forecast(latitude, longitude, (error, forecastData) => {
+                if(error){
+                    return res.send({
+                        error: error
+                    })
+                }
+                res.send({
+                    forecast: forecastData,
+                    location: locationName
+                    
+                })
+            })
+        }
+
+    })
+
+
+    
+
+})
+
+/* app.get('/products', (req, res) => {
     if (!req.query.search){
        return res.send({
             error: 'no search terms found, must provide terms'
@@ -122,7 +163,7 @@ app.get('/products', (req, res) => {
     res.send({
         products: []
     })
-})
+}) */
 
 
 // app.com ('')
