@@ -62,3 +62,8 @@ button {
     color: white;
     padding: 8px;
 }
+
+html {
+    visibility: visible;
+    opacity: 1;
+}
